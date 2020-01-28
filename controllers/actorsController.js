@@ -3,10 +3,10 @@ const { Op } = require("sequelize");
 
 let controller = {
     detail: (req, res) => {
-        db.genres.findByPk(req.params.id,
+        db.actors.findByPk(req.params.id,
             {include: ["peliculas"]})
-        .then(genero => {
-            res.render('generoDetail', {genero:genero})
+        .then(actor => {
+            res.render('actorDetail', {actor: actor})
         })
 
     }

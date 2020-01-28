@@ -15,11 +15,11 @@
         <li>Premios: <%= pelicula.awards %></li>
         <li>Fecha de estreno: <%= pelicula.release_date %></li>
         <% if (pelicula.genero) { %>
-        <li>Genero: <a href="/generos/detail/<%= pelicula.genero.id %>"><%= pelicula.genero.name %></a></li>
+        <li>Genero: <a href="/genres/detail/<%= pelicula.genero.id %>"><%= pelicula.genero.name %></a></li>
         <% } %>
         <ul>
             <% for (i = 0; i < pelicula.actores.length; i++) { %>
-                <li><%=pelicula.actores[i].first_name %> <%=pelicula.actores[i].last_name %></li>
+                <li><a href="/actors/detail/<%= pelicula.actores[i].id %>"><%=pelicula.actores[i].first_name %> <%=pelicula.actores[i].last_name %></a></li>
             <% } %>
         </ul>
     </ul>

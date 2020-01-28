@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><%= genero.name %></h1>
+    <h1><%= actor.first_name %> <%= actor.last_name %></h1>
     <ul>
-        <% for (let i = 0; i < genero.peliculas.length; i ++) { %>
-            <li><a href="/movies/detail/<%= genero.peliculas[i].id %>"><%= genero.peliculas[i].title %></a></li>
+        <% for (let i = 0; i < actor.peliculas.length; i ++) { %>
+            <li><a href="/movies/detail/<%= actor.peliculas[i].id %>"><%= actor.peliculas[i].title %></a></li>
         <% } %>
     </ul>
 </body>
