@@ -17,7 +17,6 @@ let controller = {
             include: ["genero","actores"]
         })
         .then(pelicula => {
-            console.log(pelicula)
             res.render('moviesDetail', {pelicula: pelicula})
         })
         .catch(err => {

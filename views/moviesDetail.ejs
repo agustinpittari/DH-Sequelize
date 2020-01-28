@@ -15,7 +15,7 @@
         <li>Premios: <%= pelicula.awards %></li>
         <li>Fecha de estreno: <%= pelicula.release_date %></li>
         <% if (pelicula.genero) { %>
-        <li>Genero: <a href=""><%= pelicula.genero.name %></a></li>
+        <li>Genero: <a href="/generos/detail/<%= pelicula.genero.id %>"><%= pelicula.genero.name %></a></li>
         <% } %>
         <ul>
             <% for (i = 0; i < pelicula.actores.length; i++) { %>
