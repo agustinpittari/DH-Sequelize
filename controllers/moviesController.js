@@ -13,13 +13,16 @@ let controller = {
         })
     },
     moviesDetail: (req, res) => {
-        db.movies.findByPk(req.params.id)
-        .then(resultado => {
-            let pelicula = resultado
+        db.movies.findByPk(req.params.id, {
+            include: ["genero","actores"]
+        })
+        .then(pelicula => {
+            console.log(pelicula)
             res.render('moviesDetail', {pelicula: pelicula})
         })
         .catch(err => {
             console.log(err)
+            res.send('oops')
         })
     },
     new: (req,res) => {
@@ -70,12 +73,71 @@ let controller = {
         .then(resultados => {
             let peliculas = resultados
             let criterio = req.body.ordenar
-            res.render('moviesSearch', {peliculas: peliculas, criterio:criterio})
+            res.render('moviesSearch', {peliculas: peliculas})
             console.log(req.body);
             
         })
         .catch(err => {
             console.log(err)
+        })
+    },
+    createForm: (req, res) => {
+        db.genres.findAll()
+        .then(genres => {
+        res.render('moviesCrear', {genres: genres})
+        })
+    },
+    create: (req, res) => {
+        db.movies.create({
+            title: req.body.title,
+            rating:  req.body.rating,
+            release_date:  req.body.release_date,
+            awards:  req.body.awards,
+            length:  req.body.length,
+            genre_id: req.body.genre
+        })
+        .then(pelicula => {
+            res.redirect('/movies')
+        })
+    },
+    editForm: (req,res) => {
+        db.movies.findByPk(req.params.id)
+        .then(pelicula => {
+            res.render('moviesEditar', {pelicula: pelicula})
+        })
+        
+    },
+    edit: (req,res) => {
+        db.movies.update({
+            title: req.body.title,
+            rating:  req.body.rating,
+            release_date:  req.body.release_date,
+            awards:  req.body.awards,
+            length:  req.body.length
+        },
+        {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(pelicula => {
+            res.redirect('/movies/detail/' + req.params.id)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    },
+    delete: (req, res) => {
+        db.movies.destroy({
+            where:{
+                id: req.params.id
+            }
+        })
+        .then(pelicula => {
+            res.redirect('/movies')
+        })
+        .catch(error => {
+            console.log(error)
         })
     }
 }

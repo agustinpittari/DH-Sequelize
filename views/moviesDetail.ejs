@@ -7,9 +7,27 @@
     <title>Document</title>
 </head>
 <body>
-        <%- include('./partials/searchForm') %>
+    <%- include('./partials/searchForm') %>
     <h1><%= pelicula.title %></h1>
-    <h3><%= pelicula.rating %></h3>
-
+    <ul>
+        <li>Rating: <%= pelicula.rating %></li>
+        <li>Duración:<%= pelicula.length %></li>
+        <li>Premios: <%= pelicula.awards %></li>
+        <li>Fecha de estreno: <%= pelicula.release_date %></li>
+        <% if (pelicula.genero) { %>
+        <li>Genero: <a href=""><%= pelicula.genero.name %></a></li>
+        <% } %>
+        <ul>
+            <% for (i = 0; i < pelicula.actores.length; i++) { %>
+                <li><%=pelicula.actores[i].first_name %> <%=pelicula.actores[i].last_name %></li>
+            <% } %>
+        </ul>
+    </ul>
+    <form action="/movies/edit/<%=pelicula.id%>" method="get">
+    <button type="submit">Editar</button>
+    </form>
+    <form action="/movies/delete/<%= pelicula.id %>?_method=DELETE" method="post">
+    <button type="submit">Eliminar</button>
+    </form>
 </body>
 </html>

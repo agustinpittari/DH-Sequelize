@@ -1,0 +1,22 @@
+<body>
+    <h1>Crear pelicula</h1>
+    <form action="/movies/create" method="post">
+        <label for="title">Titulo</label>
+        <input type="text" name="title" id=""><br>
+        <label for="rating">Rating</label>
+        <input type="text" name="rating" id=""><br>
+        <label for="">Premios</label>
+        <input type="text" name="awards" id=""><br>
+        <label for="">Fecha de estreno</label>
+        <input type="date" name="release_date" id=""><br>
+        <label for="">Duracion</label>
+        <input type="text" name="length" id=""><br>
+        <label for="">Genero</label>
+        <select name="genre" id="">
+            <% for (i = 0; i < genres.length; i ++) {%>
+                <option value="<%=genres[i].id%>"><%=genres[i].name%></option>
+            <% } %>
+        </select><br>
+        <button type="submit">Crear</button>
+    </form>
+</body>

@@ -10,12 +10,6 @@ module.exports = (sequelize, dataTypes) => {
             autoIncrement: true,
             primaryKey: true,                
         },
-        created_at:{
-            type: dataTypes.DATE
-        },
-        updated_at: {
-            type: dataTypes.DATE
-        },
         title: {
             type: dataTypes.STRING,
         },
@@ -32,15 +26,35 @@ module.exports = (sequelize, dataTypes) => {
         release_date : {
             type: dataTypes.DATE,
             alowNull: true
+        },
+        genre_id : {
+            type: dataTypes.INTEGER,
+            alowNull: false
         }
     };
 
     let config = {
         tableName: 'movies',
-        underscored: true
+        underscored: true,
+        timestamps: false
     }
     
     const Pelicula = sequelize.define(alias, cols, config)
+
+    Pelicula.associate = models => {
+        Pelicula.belongsTo(models.genres, {
+            as: 'genero',
+            foreignKey: 'genre_id'
+        })
+        
+        Pelicula.belongsToMany(models.actors, {
+            through: "actor_movie",
+            as: 'actores',
+            foreignKey: 'movie_id',
+            otherKey: 'actor_id',
+            timestamps: false
+        })
+    }
 
     return Pelicula
 }
